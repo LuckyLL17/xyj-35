@@ -1,0 +1,138 @@
+{
+  "exams": [
+    {
+      "id": "exam-001",
+      "title": "JavaScript基础知识测试",
+      "description": "测试学生对JavaScript基础知识的掌握程度",
+      "category": "JavaScript基础",
+      "createdBy": "teacher-001",
+      "status": "published",
+      "totalScore": 100,
+      "passingScore": 60,
+      "duration": 60,
+      "startTime": "2026-05-02T12:11:10.733Z",
+      "endTime": "2026-05-10T12:11:10.733Z",
+      "questionConfig": {
+        "totalQuestions": 20,
+        "singleChoice": {
+          "count": 10,
+          "scorePer": 4
+        },
+        "multipleChoice": {
+          "count": 5,
+          "scorePer": 6
+        },
+        "trueFalse": {
+          "count": 3,
+          "scorePer": 3
+        },
+        "fillBlank": {
+          "count": 2,
+          "scorePer": 5
+        }
+      },
+      "registeredStudents": [
+        "student-001",
+        "student-002"
+      ],
+      "createdAt": "2026-05-03T12:11:10.733Z"
+    },
+    {
+      "id": "exam-002",
+      "title": "HTML/CSS基础测验",
+      "description": "前端开发入门知识测试",
+      "category": "前端基础",
+      "createdBy": "teacher-001",
+      "status": "published",
+      "totalScore": 50,
+      "passingScore": 30,
+      "duration": 30,
+      "startTime": null,
+      "endTime": null,
+      "questionConfig": {
+        "totalQuestions": 10,
+        "singleChoice": {
+          "count": 5,
+          "scorePer": 4
+        },
+        "multipleChoice": {
+          "count": 3,
+          "scorePer": 6
+        },
+        "trueFalse": {
+          "count": 2,
+          "scorePer": 4
+        }
+      },
+      "registeredStudents": [
+        "student-001"
+      ],
+      "createdAt": "2026-05-03T12:11:10.733Z",
+      "updatedAt": "2026-05-03T13:11:52.486Z"
+    },
+    {
+      "id": "ac800191-c4d7-4108-9eeb-d044226c9711",
+      "status": "draft",
+      "registeredStudents": [],
+      "title": "111",
+      "description": "2132132132132",
+      "category": "JavaScript基础",
+      "totalScore": 100,
+      "passingScore": 60,
+      "duration": 60,
+      "startTime": "2026-05-03T00:00:00",
+      "endTime": "2026-05-04T00:00:00",
+      "questionConfig": {
+        "totalQuestions": 22,
+        "singleChoice": {
+          "count": 12,
+          "scorePer": 5
+        },
+        "multipleChoice": {
+          "count": 5,
+          "scorePer": 8
+        },
+        "trueFalse": {
+          "count": 5,
+          "scorePer": 2
+        }
+      },
+      "createdBy": "teacher-001",
+      "createdAt": "2026-05-03T13:11:34.437Z"
+    },
+    {
+      "id": "c028771d-fe96-45d8-b64e-3626ecb2e562",
+      "status": "published",
+      "registeredStudents": [
+        "student-001"
+      ],
+      "title": "dsadsa",
+      "description": "dsdsad",
+      "category": "JavaScript基础",
+      "totalScore": 100,
+      "passingScore": 60,
+      "duration": 60,
+      "maxAttempts": 1,
+      "startTime": null,
+      "endTime": null,
+      "questionConfig": {
+        "totalQuestions": 0,
+        "singleChoice": {
+          "count": 10,
+          "scorePer": 5
+        },
+        "multipleChoice": {
+          "count": 5,
+          "scorePer": 8
+        },
+        "trueFalse": {
+          "count": 5,
+          "scorePer": 2
+        }
+      },
+      "createdBy": "teacher-001",
+      "createdAt": "2026-05-03T13:40:47.340Z",
+      "updatedAt": "2026-05-03T13:41:11.881Z"
+    }
+  ]
+}

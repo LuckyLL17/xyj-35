@@ -1,0 +1,44 @@
+{
+  "categories": [
+    {
+      "id": "cat-001",
+      "name": "JavaScript基础",
+      "description": "JavaScript编程语言基础知识",
+      "sortOrder": 1,
+      "status": "active",
+      "createdAt": "2026-05-03T12:11:10.815Z"
+    },
+    {
+      "id": "cat-002",
+      "name": "HTML基础",
+      "description": "超文本标记语言基础知识",
+      "sortOrder": 2,
+      "status": "active",
+      "createdAt": "2026-05-03T12:11:10.815Z"
+    },
+    {
+      "id": "cat-003",
+      "name": "CSS基础",
+      "description": "层叠样式表基础知识",
+      "sortOrder": 3,
+      "status": "active",
+      "createdAt": "2026-05-03T12:11:10.815Z"
+    },
+    {
+      "id": "cat-004",
+      "name": "前端基础",
+      "description": "前端开发综合知识",
+      "sortOrder": 4,
+      "status": "active",
+      "createdAt": "2026-05-03T12:11:10.815Z"
+    },
+    {
+      "id": "cat-005",
+      "name": "数学",
+      "description": "数学科目相关题目",
+      "sortOrder": 5,
+      "status": "active",
+      "createdAt": "2026-05-03T12:11:10.815Z"
+    }
+  ]
+}
