@@ -1,6 +1,7 @@
 <template>
   <el-container class="layout-container">
-    <el-aside :width="isCollapse ? '64px' : '200px'" class="layout-aside">
+    <!-- 桌面端侧边栏 -->
+    <el-aside :width="isCollapse ? '64px' : '200px'" class="layout-aside hidden-sm">
       <div class="logo">
         <el-icon :size="24" color="#fff"><School /></el-icon>
         <span v-show="!isCollapse">在线考试系统</span>
@@ -40,13 +41,63 @@
       </el-menu>
     </el-aside>
     
+    <!-- 移动端抽屉菜单 -->
+    <el-drawer
+      v-model="drawerVisible"
+      direction="ltr"
+      size="240px"
+      class="mobile-drawer"
+    >
+      <div class="drawer-logo">
+        <el-icon :size="24" color="#fff"><School /></el-icon>
+        <span>在线考试系统</span>
+      </div>
+      <el-menu
+        :default-active="activeMenu"
+        :unique-opened="true"
+        router
+        background-color="#304156"
+        text-color="#bfcbd9"
+        active-text-color="#409EFF"
+        @select="drawerVisible = false"
+      >
+        <el-menu-item index="/teacher/dashboard">
+          <el-icon><HomeFilled /></el-icon>
+          <template #title>首页</template>
+        </el-menu-item>
+        
+        <el-sub-menu index="questions">
+          <template #title>
+            <el-icon><EditPen /></el-icon>
+            <span>题目管理</span>
+          </template>
+          <el-menu-item index="/teacher/questions">题目列表</el-menu-item>
+          <el-menu-item index="/teacher/questions/add">添加题目</el-menu-item>
+        </el-sub-menu>
+        
+        <el-sub-menu index="exams">
+          <template #title>
+            <el-icon><Document /></el-icon>
+            <span>考试管理</span>
+          </template>
+          <el-menu-item index="/teacher/exams">考试列表</el-menu-item>
+          <el-menu-item index="/teacher/exams/add">创建考试</el-menu-item>
+        </el-sub-menu>
+      </el-menu>
+    </el-drawer>
+    
     <el-container>
       <el-header class="layout-header">
         <div class="header-left">
-          <el-icon class="collapse-btn" @click="toggleCollapse">
+          <!-- 桌面端折叠按钮 -->
+          <el-icon class="collapse-btn hidden-sm" @click="toggleCollapse">
             <component :is="isCollapse ? 'Expand' : 'Fold'" />
           </el-icon>
-          <el-breadcrumb separator="/">
+          <!-- 移动端菜单按钮 -->
+          <el-icon class="menu-btn visible-sm" @click="drawerVisible = true">
+            <Menu />
+          </el-icon>
+          <el-breadcrumb separator="/" class="hidden-sm">
             <el-breadcrumb-item v-for="item in breadcrumbs" :key="item.path">
               {{ item.title }}
             </el-breadcrumb-item>
@@ -57,7 +108,7 @@
           <el-dropdown @command="handleCommand">
             <span class="user-info">
               <el-icon><UserFilled /></el-icon>
-              {{ userName }}
+              <span class="hidden-sm">{{ userName }}</span>
             </span>
             <template #dropdown>
               <el-dropdown-menu>
@@ -77,7 +128,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useUserStore } from '@/store/userStore'
@@ -88,6 +139,7 @@ const userStore = useUserStore()
 
 const isCollapse = ref(false)
 const activeMenu = ref(route.path)
+const drawerVisible = ref(false)
 
 const userName = computed(() => userStore.userName)
 
@@ -97,6 +149,18 @@ const breadcrumbs = computed(() => {
     path: item.path,
     title: item.meta.title
   }))
+})
+
+const checkMobile = () => {
+}
+
+onMounted(() => {
+  checkMobile()
+  window.addEventListener('resize', checkMobile)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', checkMobile)
 })
 
 watch(
@@ -179,6 +243,16 @@ const handleCommand = async (command) => {
   color: #409EFF;
 }
 
+.menu-btn {
+  font-size: 22px;
+  cursor: pointer;
+  color: #606266;
+}
+
+.menu-btn:hover {
+  color: #409EFF;
+}
+
 .user-info {
   display: flex;
   align-items: center;
@@ -195,5 +269,58 @@ const handleCommand = async (command) => {
   background-color: #f0f2f5;
   padding: 20px;
   overflow-y: auto;
+}
+
+.drawer-logo {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #2b3a4a;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  margin: -20px -20px 0 -20px;
+}
+
+.mobile-drawer :deep(.el-drawer__body) {
+  padding: 0;
+  background-color: #304156;
+}
+
+.mobile-drawer :deep(.el-menu) {
+  border-right: none;
+}
+
+/* ============ 移动端适配 ============ */
+@media screen and (max-width: 768px) {
+  .layout-header {
+    padding: 0 12px;
+    height: 56px;
+  }
+  
+  .header-left {
+    gap: 12px;
+  }
+  
+  .layout-main {
+    padding: 12px;
+  }
+  
+  .user-info span.hidden-sm {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .layout-header {
+    padding: 0 10px;
+    height: 52px;
+  }
+  
+  .layout-main {
+    padding: 10px;
+  }
 }
 </style>

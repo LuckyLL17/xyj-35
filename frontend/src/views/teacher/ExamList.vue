@@ -9,71 +9,73 @@
     </div>
 
     <el-card>
-      <el-table :data="exams" stripe style="width: 100%">
-        <el-table-column prop="title" label="考试名称" min-width="200" />
-        <el-table-column prop="description" label="描述" min-width="200">
-          <template #default="scope">
-            <span class="description-text">{{ scope.row.description || '-' }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column prop="category" label="分类" width="120">
-          <template #default="scope">
-            {{ scope.row.category || '未分类' }}
-          </template>
-        </el-table-column>
-        <el-table-column label="分数设置" width="150">
-          <template #default="scope">
-            总分：{{ scope.row.totalScore }}分<br />
-            及格：{{ scope.row.passingScore }}分
-          </template>
-        </el-table-column>
-        <el-table-column prop="duration" label="时长" width="100">
-          <template #default="scope">
-            {{ scope.row.duration }}分钟
-          </template>
-        </el-table-column>
-        <el-table-column prop="status" label="状态" width="100">
-          <template #default="scope">
-            <el-tag :type="getStatusType(scope.row.status)" size="small">
-              {{ getStatusText(scope.row.status) }}
-            </el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column label="报名人数" width="100">
-          <template #default="scope">
-            {{ scope.row.registeredStudents?.length || 0 }}人
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" width="280" fixed="right">
-          <template #default="scope">
-            <el-button type="primary" link @click="editExam(scope.row)">编辑</el-button>
-            <el-button
-              type="success"
-              link
-              @click="publishExam(scope.row)"
-              v-if="scope.row.status === 'draft'"
-            >
-              发布
-            </el-button>
-            <el-button
-              type="primary"
-              link
-              @click="viewResults(scope.row)"
-              v-if="scope.row.status === 'published'"
-            >
-              成绩
-            </el-button>
-            <el-button
-              type="danger"
-              link
-              @click="deleteExam(scope.row)"
-              v-if="scope.row.status === 'draft'"
-            >
-              删除
-            </el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+      <div class="table-responsive">
+        <el-table :data="exams" stripe style="width: 100%">
+          <el-table-column prop="title" label="考试名称" min-width="200" />
+          <el-table-column prop="description" label="描述" min-width="200">
+            <template #default="scope">
+              <span class="description-text">{{ scope.row.description || '-' }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="category" label="分类" width="120">
+            <template #default="scope">
+              {{ scope.row.category || '未分类' }}
+            </template>
+          </el-table-column>
+          <el-table-column label="分数设置" width="150">
+            <template #default="scope">
+              总分：{{ scope.row.totalScore }}分<br />
+              及格：{{ scope.row.passingScore }}分
+            </template>
+          </el-table-column>
+          <el-table-column prop="duration" label="时长" width="100">
+            <template #default="scope">
+              {{ scope.row.duration }}分钟
+            </template>
+          </el-table-column>
+          <el-table-column prop="status" label="状态" width="100">
+            <template #default="scope">
+              <el-tag :type="getStatusType(scope.row.status)" size="small">
+                {{ getStatusText(scope.row.status) }}
+              </el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column label="报名人数" width="100">
+            <template #default="scope">
+              {{ scope.row.registeredStudents?.length || 0 }}人
+            </template>
+          </el-table-column>
+          <el-table-column label="操作" width="280" fixed="right">
+            <template #default="scope">
+              <el-button type="primary" link @click="editExam(scope.row)">编辑</el-button>
+              <el-button
+                type="success"
+                link
+                @click="publishExam(scope.row)"
+                v-if="scope.row.status === 'draft'"
+              >
+                发布
+              </el-button>
+              <el-button
+                type="primary"
+                link
+                @click="viewResults(scope.row)"
+                v-if="scope.row.status === 'published'"
+              >
+                成绩
+              </el-button>
+              <el-button
+                type="danger"
+                link
+                @click="deleteExam(scope.row)"
+                v-if="scope.row.status === 'draft'"
+              >
+                删除
+              </el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
 
       <el-empty v-if="exams.length === 0" description="暂无考试" />
     </el-card>
@@ -190,5 +192,18 @@ onMounted(() => {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* ============ 响应式适配 ============ */
+@media screen and (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .page-header .el-button {
+    width: 100%;
+  }
 }
 </style>

@@ -9,34 +9,36 @@
     </div>
 
     <el-card>
-      <el-table :data="categories" stripe style="width: 100%">
-        <el-table-column type="index" label="序号" width="60" />
-        <el-table-column prop="name" label="分类名称" width="200" />
-        <el-table-column prop="description" label="描述" min-width="200">
-          <template #default="scope">
-            {{ scope.row.description || '-' }}
-          </template>
-        </el-table-column>
-        <el-table-column prop="sortOrder" label="排序" width="100" />
-        <el-table-column prop="status" label="状态" width="100">
-          <template #default="scope">
-            <el-tag :type="scope.row.status === 'active' ? 'success' : 'info'" size="small">
-              {{ scope.row.status === 'active' ? '启用' : '禁用' }}
-            </el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column prop="createdAt" label="创建时间" width="180">
-          <template #default="scope">
-            {{ scope.row.createdAt ? formatDate(scope.row.createdAt) : '-' }}
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" width="150" fixed="right">
-          <template #default="scope">
-            <el-button type="primary" link @click="handleEdit(scope.row)">编辑</el-button>
-            <el-button type="danger" link @click="handleDelete(scope.row)">删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+      <div class="table-responsive">
+        <el-table :data="categories" stripe style="width: 100%">
+          <el-table-column type="index" label="序号" width="60" />
+          <el-table-column prop="name" label="分类名称" width="200" />
+          <el-table-column prop="description" label="描述" min-width="200">
+            <template #default="scope">
+              {{ scope.row.description || '-' }}
+            </template>
+          </el-table-column>
+          <el-table-column prop="sortOrder" label="排序" width="100" />
+          <el-table-column prop="status" label="状态" width="100">
+            <template #default="scope">
+              <el-tag :type="scope.row.status === 'active' ? 'success' : 'info'" size="small">
+                {{ scope.row.status === 'active' ? '启用' : '禁用' }}
+              </el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column prop="createdAt" label="创建时间" width="180">
+            <template #default="scope">
+              {{ scope.row.createdAt ? formatDate(scope.row.createdAt) : '-' }}
+            </template>
+          </el-table-column>
+          <el-table-column label="操作" width="150" fixed="right">
+            <template #default="scope">
+              <el-button type="primary" link @click="handleEdit(scope.row)">编辑</el-button>
+              <el-button type="danger" link @click="handleDelete(scope.row)">删除</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
 
       <el-empty v-if="categories.length === 0" description="暂无分类" />
     </el-card>
@@ -215,4 +217,16 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/* ============ 响应式适配 ============ */
+@media screen and (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .page-header .el-button {
+    width: 100%;
+  }
+}
 </style>

@@ -23,55 +23,57 @@
         </el-form-item>
       </el-form>
 
-      <el-table :data="users" stripe style="width: 100%">
-        <el-table-column type="index" label="序号" width="60" />
-        <el-table-column prop="username" label="用户名" width="120" />
-        <el-table-column prop="name" label="姓名" width="100" />
-        <el-table-column prop="role" label="角色" width="100">
-          <template #default="scope">
-            <el-tag :type="getRoleType(scope.row.role)" size="small">
-              {{ getRoleName(scope.row.role) }}
-            </el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column prop="email" label="邮箱" min-width="150">
-          <template #default="scope">
-            {{ scope.row.email || '-' }}
-          </template>
-        </el-table-column>
-        <el-table-column label="附加信息" min-width="150">
-          <template #default="scope">
-            <template v-if="scope.row.role === 'student'">
-              学号：{{ scope.row.studentId || '-' }}<br />
-              班级：{{ scope.row.class || '-' }}
+      <div class="table-responsive">
+        <el-table :data="users" stripe style="width: 100%">
+          <el-table-column type="index" label="序号" width="60" />
+          <el-table-column prop="username" label="用户名" width="120" />
+          <el-table-column prop="name" label="姓名" width="100" />
+          <el-table-column prop="role" label="角色" width="100">
+            <template #default="scope">
+              <el-tag :type="getRoleType(scope.row.role)" size="small">
+                {{ getRoleName(scope.row.role) }}
+              </el-tag>
             </template>
-            <template v-else-if="scope.row.role === 'teacher'">
-              部门：{{ scope.row.department || '-' }}
+          </el-table-column>
+          <el-table-column prop="email" label="邮箱" min-width="150">
+            <template #default="scope">
+              {{ scope.row.email || '-' }}
             </template>
-            <template v-else>
-              -
+          </el-table-column>
+          <el-table-column label="附加信息" min-width="150">
+            <template #default="scope">
+              <template v-if="scope.row.role === 'student'">
+                学号：{{ scope.row.studentId || '-' }}<br />
+                班级：{{ scope.row.class || '-' }}
+              </template>
+              <template v-else-if="scope.row.role === 'teacher'">
+                部门：{{ scope.row.department || '-' }}
+              </template>
+              <template v-else>
+                -
+              </template>
             </template>
-          </template>
-        </el-table-column>
-        <el-table-column prop="createdAt" label="创建时间" width="180">
-          <template #default="scope">
-            {{ scope.row.createdAt ? formatDate(scope.row.createdAt) : '-' }}
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" width="150" fixed="right">
-          <template #default="scope">
-            <el-button type="primary" link @click="editUser(scope.row)">编辑</el-button>
-            <el-button
-              type="danger"
-              link
-              @click="deleteUser(scope.row)"
-              :disabled="scope.row.role === 'admin'"
-            >
-              删除
-            </el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+          </el-table-column>
+          <el-table-column prop="createdAt" label="创建时间" width="180">
+            <template #default="scope">
+              {{ scope.row.createdAt ? formatDate(scope.row.createdAt) : '-' }}
+            </template>
+          </el-table-column>
+          <el-table-column label="操作" width="150" fixed="right">
+            <template #default="scope">
+              <el-button type="primary" link @click="editUser(scope.row)">编辑</el-button>
+              <el-button
+                type="danger"
+                link
+                @click="deleteUser(scope.row)"
+                :disabled="scope.row.role === 'admin'"
+              >
+                删除
+              </el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
 
       <el-empty v-if="users.length === 0" description="暂无用户" />
     </el-card>
@@ -176,4 +178,16 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/* ============ 响应式适配 ============ */
+@media screen and (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .page-header .el-button {
+    width: 100%;
+  }
+}
 </style>

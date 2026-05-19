@@ -4,118 +4,112 @@
       <div class="exam-header">
         <div class="exam-info">
           <h2>{{ examData?.exam?.title }}</h2>
-          <p>总分：{{ examData?.exam?.totalScore }}分 | 及格分：{{ examData?.exam?.passingScore }}分</p>
+          <p class="hidden-sm">总分：{{ examData?.exam?.totalScore }}分 | 及格分：{{ examData?.exam?.passingScore }}分</p>
         </div>
         <div class="timer">
-          <el-icon :size="24"><Clock /></el-icon>
+          <el-icon :size="20"><Clock /></el-icon>
           <span class="time-text">{{ formatTime(remainingTime) }}</span>
         </div>
       </div>
     </el-card>
 
-    <div class="exam-content">
-      <el-aside width="240px" class="question-nav">
-        <el-card>
-          <template #header>
-            <div class="nav-header">
-              <span>题目导航</span>
-              <span>共 {{ examData?.questions?.length || 0 }} 题</span>
-            </div>
-          </template>
-          <div class="question-grid">
-            <div
-              v-for="(q, index) in examData?.questions || []"
-              :key="q.id"
-              :class="['question-item', {
-                'active': currentIndex === index,
-                'answered': answers[q.id] !== undefined && answers[q.id] !== null && answers[q.id] !== '',
-                'current': currentIndex === index
-              }]"
-              @click="currentIndex = index"
-            >
-              {{ index + 1 }}
-              <span v-if="answers[q.id] !== undefined && answers[q.id] !== null && answers[q.id] !== ''" class="answered-dot"></span>
-            </div>
-          </div>
-          <div class="nav-footer">
-            <p>已答：{{ answeredCount }} 题</p>
-            <p>未答：{{ unansweredCount }} 题</p>
-          </div>
-        </el-card>
-      </el-aside>
+    <!-- 题目导航区域 -->
+    <el-card class="nav-card">
+      <div class="nav-header">
+        <span>题目导航</span>
+        <span>共 {{ examData?.questions?.length || 0 }} 题</span>
+      </div>
+      <div class="question-grid">
+        <div
+          v-for="(q, index) in examData?.questions || []"
+          :key="q.id"
+          :class="['question-item', {
+            'active': currentIndex === index,
+            'answered': answers[q.id] !== undefined && answers[q.id] !== null && answers[q.id] !== '',
+            'current': currentIndex === index
+          }]"
+          @click="currentIndex = index"
+        >
+          {{ index + 1 }}
+          <span v-if="answers[q.id] !== undefined && answers[q.id] !== null && answers[q.id] !== ''" class="answered-dot"></span>
+        </div>
+      </div>
+      <div class="nav-footer">
+        <p>已答：{{ answeredCount }} 题</p>
+        <p>未答：{{ unansweredCount }} 题</p>
+      </div>
+    </el-card>
 
-      <el-main class="question-main">
-        <el-card v-if="currentQuestion" class="question-card">
-          <div class="question-header">
-            <el-tag :type="getQuestionTypeTag(currentQuestion.type)">
-              {{ getQuestionTypeName(currentQuestion.type) }}
-            </el-tag>
-            <span class="question-score">（{{ currentQuestion.score }}分）</span>
-          </div>
-          
-          <div class="question-content">
-            <h3>第 {{ currentIndex + 1 }} 题：{{ currentQuestion.content }}</h3>
-          </div>
+    <!-- 题目内容区域 -->
+    <el-card v-if="currentQuestion" class="question-card">
+      <div class="question-header">
+        <el-tag :type="getQuestionTypeTag(currentQuestion.type)">
+          {{ getQuestionTypeName(currentQuestion.type) }}
+        </el-tag>
+        <span class="question-score">（{{ currentQuestion.score }}分）</span>
+      </div>
+      
+      <div class="question-content">
+        <h3>第 {{ currentIndex + 1 }} 题：{{ currentQuestion.content }}</h3>
+      </div>
 
-          <div class="question-options" v-if="currentQuestion.options && currentQuestion.options.length > 0">
-            <el-radio-group
-              v-if="currentQuestion.type === 'single' || currentQuestion.type === 'true_false'"
-              v-model="answers[currentQuestion.id]"
-            >
-              <el-radio
-                v-for="(opt, idx) in currentQuestion.options"
-                :key="idx"
-                :label="String.fromCharCode(65 + idx)"
-                class="option-item"
-              >
-                <span class="option-label">{{ String.fromCharCode(65 + idx) }}.</span>
-                {{ opt }}
-              </el-radio>
-            </el-radio-group>
+      <div class="question-options" v-if="currentQuestion.options && currentQuestion.options.length > 0">
+        <el-radio-group
+          v-if="currentQuestion.type === 'single' || currentQuestion.type === 'true_false'"
+          v-model="answers[currentQuestion.id]"
+        >
+          <el-radio
+            v-for="(opt, idx) in currentQuestion.options"
+            :key="idx"
+            :label="String.fromCharCode(65 + idx)"
+            class="option-item"
+          >
+            <span class="option-label">{{ String.fromCharCode(65 + idx) }}.</span>
+            {{ opt }}
+          </el-radio>
+        </el-radio-group>
 
-            <el-checkbox-group
-              v-if="currentQuestion.type === 'multiple'"
-              v-model="currentMultipleAnswer"
-              @change="handleMultipleChange"
-            >
-              <el-checkbox
-                v-for="(opt, idx) in currentQuestion.options"
-                :key="idx"
-                :label="String.fromCharCode(65 + idx)"
-                class="option-item"
-              >
-                <span class="option-label">{{ String.fromCharCode(65 + idx) }}.</span>
-                {{ opt }}
-              </el-checkbox>
-            </el-checkbox-group>
-          </div>
+        <el-checkbox-group
+          v-if="currentQuestion.type === 'multiple'"
+          v-model="currentMultipleAnswer"
+          @change="handleMultipleChange"
+        >
+          <el-checkbox
+            v-for="(opt, idx) in currentQuestion.options"
+            :key="idx"
+            :label="String.fromCharCode(65 + idx)"
+            class="option-item"
+          >
+            <span class="option-label">{{ String.fromCharCode(65 + idx) }}.</span>
+            {{ opt }}
+          </el-checkbox>
+        </el-checkbox-group>
+      </div>
 
-          <div class="question-input" v-else-if="currentQuestion.type === 'fill_blank'">
-            <el-input
-              v-model="answers[currentQuestion.id]"
-              placeholder="请输入答案"
-              size="large"
-            />
-          </div>
+      <div class="question-input" v-else-if="currentQuestion.type === 'fill_blank'">
+        <el-input
+          v-model="answers[currentQuestion.id]"
+          placeholder="请输入答案"
+          size="large"
+        />
+      </div>
 
-          <div class="question-actions">
-            <el-button
-              :disabled="currentIndex === 0"
-              @click="prevQuestion"
-            >
-              上一题
-            </el-button>
-            <el-button
-              :disabled="currentIndex === (examData?.questions?.length || 1) - 1"
-              @click="nextQuestion"
-              type="primary"
-            >
-              下一题
-            </el-button>
-          </div>
-        </el-card>
-      </el-main>
-    </div>
+      <div class="question-actions">
+        <el-button
+          :disabled="currentIndex === 0"
+          @click="prevQuestion"
+        >
+          上一题
+        </el-button>
+        <el-button
+          :disabled="currentIndex === (examData?.questions?.length || 1) - 1"
+          @click="nextQuestion"
+          type="primary"
+        >
+          下一题
+        </el-button>
+      </div>
+    </el-card>
 
     <el-card class="submit-card">
       <el-button
@@ -130,7 +124,7 @@
     <el-dialog
       v-model="submitDialogVisible"
       title="确认交卷"
-      width="400px"
+      width="90%"
     >
       <el-alert
         :title="`您已完成 ${answeredCount} 题，还有 ${unansweredCount} 题未作答，确定要交卷吗？`"
@@ -149,7 +143,7 @@
     <el-dialog
       v-model="resultDialogVisible"
       title="考试结果"
-      width="500px"
+      width="90%"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
     >
@@ -371,21 +365,25 @@ onUnmounted(() => {
 <style scoped>
 .take-exam {
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .exam-header-card {
-  margin-bottom: 20px;
+  margin-bottom: 0;
 }
 
 .exam-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .exam-info h2 {
   margin: 0 0 8px 0;
   color: #303133;
+  font-size: 18px;
 }
 
 .exam-info p {
@@ -396,34 +394,35 @@ onUnmounted(() => {
 .timer {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 10px;
   color: #409EFF;
+  padding-top: 8px;
+  border-top: 1px solid #EBEEF5;
 }
 
 .time-text {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
   font-family: 'Courier New', monospace;
 }
 
-.exam-content {
-  display: flex;
-  gap: 20px;
-}
-
-.question-nav {
-  flex-shrink: 0;
+.nav-card {
+  width: 100%;
 }
 
 .nav-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #303133;
 }
 
 .question-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(8, 1fr);
   gap: 8px;
 }
 
@@ -438,6 +437,7 @@ onUnmounted(() => {
   cursor: pointer;
   font-size: 14px;
   position: relative;
+  margin: 0 auto;
 }
 
 .question-item:hover {
@@ -470,21 +470,19 @@ onUnmounted(() => {
   margin-top: 16px;
   padding-top: 16px;
   border-top: 1px solid #EBEEF5;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
 }
 
 .nav-footer p {
-  margin: 4px 0;
+  margin: 0;
   font-size: 13px;
   color: #606266;
 }
 
-.question-main {
-  flex: 1;
-  padding: 0;
-}
-
 .question-card {
-  min-height: 400px;
+  width: 100%;
 }
 
 .question-header {
@@ -520,7 +518,7 @@ onUnmounted(() => {
 
 .question-input {
   margin-top: 24px;
-  max-width: 400px;
+  max-width: 100%;
 }
 
 .question-actions {
@@ -530,9 +528,18 @@ onUnmounted(() => {
   gap: 20px;
 }
 
+.question-actions .el-button {
+  min-width: 120px;
+}
+
 .submit-card {
-  margin-top: 20px;
+  margin-top: 0;
   text-align: center;
+}
+
+.submit-card .el-button {
+  width: 100%;
+  max-width: 400px;
 }
 
 .result-content {
@@ -563,5 +570,132 @@ onUnmounted(() => {
   margin: 12px 0;
   font-size: 15px;
   color: #606266;
+}
+
+/* ============ 平板适配 ============ */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .question-grid {
+    grid-template-columns: repeat(10, 1fr);
+  }
+  
+  .exam-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .timer {
+    padding-top: 0;
+    border-top: none;
+  }
+}
+
+/* ============ 桌面端适配 ============ */
+@media screen and (min-width: 1025px) {
+  .question-grid {
+    grid-template-columns: repeat(12, 1fr);
+  }
+  
+  .exam-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .timer {
+    padding-top: 0;
+    border-top: none;
+  }
+  
+  .question-input {
+    max-width: 400px;
+  }
+}
+
+/* ============ 移动端适配 ============ */
+@media screen and (max-width: 768px) {
+  .take-exam {
+    gap: 12px;
+  }
+  
+  .exam-info h2 {
+    font-size: 16px;
+  }
+  
+  .time-text {
+    font-size: 20px;
+  }
+  
+  .question-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+  }
+  
+  .question-item {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+  
+  .nav-footer {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .question-content h3 {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  
+  .option-item {
+    margin: 10px 0;
+    font-size: 14px;
+  }
+  
+  .question-actions {
+    margin-top: 24px;
+    gap: 12px;
+  }
+  
+  .question-actions .el-button {
+    flex: 1;
+    min-width: auto;
+  }
+  
+  .score-value {
+    font-size: 36px;
+  }
+  
+  .score-label {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .exam-info h2 {
+    font-size: 15px;
+  }
+  
+  .time-text {
+    font-size: 18px;
+  }
+  
+  .question-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  
+  .question-item {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .question-content h3 {
+    font-size: 14px;
+  }
+  
+  .option-item {
+    font-size: 13px;
+  }
 }
 </style>
