@@ -68,4 +68,53 @@ html, body {
 .form-container {
   max-width: 800px;
 }
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .page-title {
+    font-size: 18px;
+  }
+
+  .el-table {
+    margin-top: 12px;
+  }
+
+  .el-table th.el-table__cell,
+  .el-table td.el-table__cell {
+    padding: 8px 0;
+    font-size: 13px;
+  }
+
+  .el-pagination {
+    margin-top: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .search-form .el-form-item {
+    margin-right: 0;
+    width: 100%;
+  }
+
+  .card-container {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 16px;
+  }
+
+  .el-table th.el-table__cell,
+  .el-table td.el-table__cell {
+    padding: 6px 0;
+    font-size: 12px;
+  }
+}
 </style>

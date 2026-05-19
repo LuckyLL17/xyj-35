@@ -176,4 +176,35 @@ const handleLogin = async () => {
   font-weight: 600;
   margin-bottom: 8px;
 }
+
+@media (max-width: 768px) {
+  .login-box {
+    width: 90%;
+    max-width: 400px;
+    padding: 30px 20px;
+  }
+
+  .login-header h1 {
+    font-size: 22px;
+  }
+
+  .login-header {
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-box {
+    width: 95%;
+    padding: 24px 16px;
+  }
+
+  .login-header h1 {
+    font-size: 20px;
+  }
+
+  .login-header p {
+    font-size: 12px;
+  }
+}
 </style>

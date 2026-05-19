@@ -7,8 +7,10 @@
       "answers": [],
       "examId": "exam-002",
       "studentId": "student-001",
-      "startTime": "2026-05-03T13:11:52.487Z",
-      "createdAt": "2026-05-03T13:11:52.487Z"
+      "startTime": "2026-05-19T03:13:10.355Z",
+      "createdAt": "2026-05-03T13:11:52.487Z",
+      "examQuestions": [],
+      "updatedAt": "2026-05-19T03:13:10.355Z"
     },
     {
       "id": "cbf75f92-568a-40c3-ae74-76c4efa272f6",
@@ -137,6 +139,54 @@
       "updatedAt": "2026-05-03T13:41:19.277Z",
       "endTime": "2026-05-03T13:41:19.277Z",
       "submittedAt": "2026-05-03T13:41:19.277Z"
+    },
+    {
+      "id": "456b009b-1390-4ab7-8737-888d4ca74077",
+      "status": "in_progress",
+      "score": 0,
+      "answers": [],
+      "examId": "exam-001",
+      "studentId": "student-001",
+      "attemptNumber": 2,
+      "startTime": "2026-05-19T03:13:47.328Z",
+      "createdAt": "2026-05-19T03:13:47.140Z",
+      "examQuestions": [
+        {
+          "id": "q-004",
+          "type": "true_false",
+          "content": "JavaScript是一种强类型编程语言。",
+          "options": [
+            "正确",
+            "错误"
+          ],
+          "answer": "B",
+          "category": "JavaScript基础",
+          "difficulty": "easy",
+          "score": 1,
+          "createdBy": "teacher-001",
+          "createdAt": "2026-05-03T12:11:10.734Z",
+          "scorePerQuestion": 3
+        },
+        {
+          "id": "q-001",
+          "type": "single",
+          "content": "以下哪个不是JavaScript的数据类型？",
+          "options": [
+            "String",
+            "Number",
+            "Boolean",
+            "Character"
+          ],
+          "answer": "D",
+          "category": "JavaScript基础",
+          "difficulty": "easy",
+          "score": 2,
+          "createdBy": "teacher-001",
+          "createdAt": "2026-05-03T12:11:10.734Z",
+          "scorePerQuestion": 4
+        }
+      ],
+      "updatedAt": "2026-05-19T03:13:47.328Z"
     }
   ]
 }

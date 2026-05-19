@@ -311,4 +311,19 @@ onMounted(() => {
   font-weight: 600;
   color: #606266;
 }
+
+@media (max-width: 768px) {
+  .question-form :deep(.el-form-item__label) {
+    width: 80px !important;
+    font-size: 13px;
+  }
+
+  .question-form :deep(.form-container) {
+    max-width: 100%;
+  }
+
+  .option-item {
+    flex-wrap: wrap;
+  }
+}
 </style>

@@ -211,4 +211,15 @@ onMounted(() => {
 .form-container {
   max-width: 600px;
 }
+
+@media (max-width: 768px) {
+  .form-container {
+    max-width: 100%;
+  }
+
+  .user-form :deep(.el-form-item__label) {
+    width: 80px !important;
+    font-size: 13px;
+  }
+}
 </style>

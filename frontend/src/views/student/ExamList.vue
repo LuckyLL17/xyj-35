@@ -11,7 +11,7 @@
         </el-card>
         
         <el-row :gutter="20" v-else>
-          <el-col :span="8" v-for="exam in availableExams" :key="exam.id">
+          <el-col :xs="24" :sm="12" :md="8" v-for="exam in availableExams" :key="exam.id">
             <el-card class="exam-card">
               <div class="exam-header">
                 <span class="exam-title">{{ exam.title }}</span>
@@ -44,7 +44,7 @@
         </el-card>
         
         <el-row :gutter="20" v-else>
-          <el-col :span="8" v-for="exam in registeredExams" :key="exam.id">
+          <el-col :xs="24" :sm="12" :md="8" v-for="exam in registeredExams" :key="exam.id">
             <el-card class="exam-card">
               <div class="exam-header">
                 <span class="exam-title">{{ exam.title }}</span>
@@ -281,5 +281,21 @@ onMounted(() => {
   text-align: center;
   padding-top: 16px;
   border-top: 1px solid #EBEEF5;
+}
+
+@media (max-width: 768px) {
+  .exam-list :deep(.el-row) {
+    margin-left: -10px !important;
+    margin-right: -10px !important;
+  }
+
+  .exam-list :deep(.el-col) {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  .exam-title {
+    font-size: 14px;
+  }
 }
 </style>
