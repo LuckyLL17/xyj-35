@@ -5,12 +5,13 @@
       <el-button @click="goBack">返回</el-button>
     </div>
 
-    <el-card class="form-container" style="max-width:80vw"> 
+    <el-card class="form-container">
       <el-form
         ref="formRef"
         :model="formData"
         :rules="formRules"
         label-width="120px"
+        :label-position="isMobile ? 'top' : 'right'"
       >
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12">
@@ -21,7 +22,7 @@
               />
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :xs="24" :sm="12">
             <el-form-item label="分类" prop="category">
               <el-select
                 v-model="formData.category"
@@ -112,7 +113,7 @@
               />
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :xs="24" :sm="12">
             <el-form-item label="结束时间" prop="endTime">
               <el-date-picker
                 v-model="formData.endTime"
@@ -139,96 +140,104 @@
         </el-alert>
 
         <el-row :gutter="20" style="margin-top: 20px;">
-          <el-col :xs="12" :sm="6">
-            <el-card shadow="hover">
+          <el-col :xs="12" :sm="12" :md="6">
+            <el-card shadow="hover" class="config-card">
               <div class="question-config-item">
                 <div class="config-title">单选题</div>
-                <el-form-item label="题目数量">
+                <el-form-item label="题目数量" label-position="top">
                   <el-input-number
                     v-model="formData.questionConfig.singleChoice.count"
                     :min="0"
                     :max="100"
                     size="small"
+                    style="width: 100%"
                   />
                 </el-form-item>
-                <el-form-item label="每题分值">
+                <el-form-item label="每题分值" label-position="top">
                   <el-input-number
                     v-model="formData.questionConfig.singleChoice.scorePer"
                     :min="0"
                     :max="100"
                     size="small"
+                    style="width: 100%"
                   />
                 </el-form-item>
               </div>
             </el-card>
           </el-col>
 
-          <el-col :xs="12" :sm="6">
-            <el-card shadow="hover">
+          <el-col :xs="12" :sm="12" :md="6">
+            <el-card shadow="hover" class="config-card">
               <div class="question-config-item">
                 <div class="config-title">多选题</div>
-                <el-form-item label="题目数量">
+                <el-form-item label="题目数量" label-position="top">
                   <el-input-number
                     v-model="formData.questionConfig.multipleChoice.count"
                     :min="0"
                     :max="100"
                     size="small"
+                    style="width: 100%"
                   />
                 </el-form-item>
-                <el-form-item label="每题分值">
+                <el-form-item label="每题分值" label-position="top">
                   <el-input-number
                     v-model="formData.questionConfig.multipleChoice.scorePer"
                     :min="0"
                     :max="100"
                     size="small"
+                    style="width: 100%"
                   />
                 </el-form-item>
               </div>
             </el-card>
           </el-col>
 
-          <el-col :xs="12" :sm="6">
-            <el-card shadow="hover">
+          <el-col :xs="12" :sm="12" :md="6">
+            <el-card shadow="hover" class="config-card">
               <div class="question-config-item">
                 <div class="config-title">判断题</div>
-                <el-form-item label="题目数量">
+                <el-form-item label="题目数量" label-position="top">
                   <el-input-number
                     v-model="formData.questionConfig.trueFalse.count"
                     :min="0"
                     :max="100"
                     size="small"
+                    style="width: 100%"
                   />
                 </el-form-item>
-                <el-form-item label="每题分值">
+                <el-form-item label="每题分值" label-position="top">
                   <el-input-number
                     v-model="formData.questionConfig.trueFalse.scorePer"
                     :min="0"
                     :max="100"
                     size="small"
+                    style="width: 100%"
                   />
                 </el-form-item>
               </div>
             </el-card>
           </el-col>
 
-          <el-col :xs="12" :sm="6">
-            <el-card shadow="hover">
+          <el-col :xs="12" :sm="12" :md="6">
+            <el-card shadow="hover" class="config-card">
               <div class="question-config-item">
                 <div class="config-title">填空题</div>
-                <el-form-item label="题目数量">
+                <el-form-item label="题目数量" label-position="top">
                   <el-input-number
                     v-model="formData.questionConfig.fillBlank.count"
                     :min="0"
                     :max="100"
                     size="small"
+                    style="width: 100%"
                   />
                 </el-form-item>
-                <el-form-item label="每题分值">
+                <el-form-item label="每题分值" label-position="top">
                   <el-input-number
                     v-model="formData.questionConfig.fillBlank.scorePer"
                     :min="0"
                     :max="100"
                     size="small"
+                    style="width: 100%"
                   />
                 </el-form-item>
               </div>
@@ -249,7 +258,7 @@
 </template>
 
 <script setup>
-import { ref, computed, reactive, watch, onMounted } from 'vue'
+import { ref, computed, reactive, watch, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { teacherApi } from '@/services/api'
 import { ElMessage } from 'element-plus'
@@ -261,6 +270,11 @@ const router = useRouter()
 const formRef = ref(null)
 const loading = ref(false)
 const categories = ref([])
+const isMobile = ref(false)
+
+const checkMobile = () => {
+  isMobile.value = window.innerWidth <= 768
+}
 
 const isEdit = computed(() => !!route.params.id)
 
@@ -422,51 +436,79 @@ const loadCategories = async () => {
 }
 
 onMounted(() => {
+  checkMobile()
+  window.addEventListener('resize', checkMobile)
   loadCategories()
   loadExam()
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', checkMobile)
 })
 </script>
 
 <style scoped>
+.form-container {
+  max-width: 900px;
+}
+
 .question-config-item {
   text-align: center;
   padding: 10px 0;
+}
+
+.config-card :deep(.el-card__body) {
+  padding: 16px 12px;
 }
 
 .config-title {
   font-size: 16px;
   font-weight: 600;
   color: #409EFF;
-  margin-bottom: 16px;
-}
-
-.question-config-item :deep(.el-form-item) {
   margin-bottom: 12px;
 }
 
+.question-config-item :deep(.el-form-item) {
+  margin-bottom: 8px;
+}
+
 .question-config-item :deep(.el-form-item__label) {
-  width: 80px !important;
+  width: auto !important;
+  padding: 0 0 4px 0;
+  font-size: 13px;
+  text-align: left;
 }
 
 @media (max-width: 768px) {
+  .form-container {
+    max-width: 100%;
+  }
+
   .exam-form :deep(.el-form-item__label) {
-    width: 90px !important;
     font-size: 13px;
   }
 
-  .question-config-item :deep(.el-form-item__label) {
-    width: 70px !important;
-    font-size: 12px;
+  .config-card :deep(.el-card__body) {
+    padding: 12px 8px;
   }
 
   .config-title {
     font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .question-config-item :deep(.el-form-item__label) {
+    font-size: 12px;
   }
 }
 
 @media (max-width: 480px) {
-  .exam-form :deep(.el-form-item__label) {
-    width: 80px !important;
+  .config-card :deep(.el-card__body) {
+    padding: 10px 6px;
+  }
+
+  .config-title {
+    font-size: 13px;
   }
 }
 </style>
