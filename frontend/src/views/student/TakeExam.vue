@@ -14,7 +14,7 @@
     </el-card>
 
     <div class="exam-content">
-      <el-aside width="240px" class="question-nav">
+      <el-aside width="240px" class="question-nav desktop-nav">
         <el-card>
           <template #header>
             <div class="nav-header">
@@ -43,6 +43,28 @@
           </div>
         </el-card>
       </el-aside>
+
+      <div class="mobile-nav">
+        <el-card>
+          <div class="mobile-nav-header">
+            <span>题目导航</span>
+            <span class="mobile-nav-info">已答 {{ answeredCount }} / {{ examData?.questions?.length || 0 }}</span>
+          </div>
+          <div class="mobile-question-scroll">
+            <div
+              v-for="(q, index) in examData?.questions || []"
+              :key="q.id"
+              :class="['mobile-question-item', {
+                'active': currentIndex === index,
+                'answered': answers[q.id] !== undefined && answers[q.id] !== null && answers[q.id] !== ''
+              }]"
+              @click="currentIndex = index"
+            >
+              {{ index + 1 }}
+            </div>
+          </div>
+        </el-card>
+      </div>
 
       <el-main class="question-main">
         <el-card v-if="currentQuestion" class="question-card">
@@ -415,6 +437,10 @@ onUnmounted(() => {
   flex-shrink: 0;
 }
 
+.mobile-nav {
+  display: none;
+}
+
 .nav-header {
   display: flex;
   justify-content: space-between;
@@ -563,5 +589,124 @@ onUnmounted(() => {
   margin: 12px 0;
   font-size: 15px;
   color: #606266;
+}
+
+.mobile-nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #606266;
+}
+
+.mobile-nav-info {
+  color: #909399;
+}
+
+.mobile-question-scroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mobile-question-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.mobile-question-scroll::-webkit-scrollbar-thumb {
+  background-color: #DCDFE6;
+  border-radius: 2px;
+}
+
+.mobile-question-item {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #DCDFE6;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.mobile-question-item.active {
+  background-color: #409EFF;
+  color: #fff;
+  border-color: #409EFF;
+}
+
+.mobile-question-item.answered {
+  background-color: #f0f9eb;
+  border-color: #67C23A;
+}
+
+@media (max-width: 768px) {
+  .exam-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .exam-info h2 {
+    font-size: 16px;
+  }
+
+  .exam-info p {
+    font-size: 12px;
+  }
+
+  .time-text {
+    font-size: 20px;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .mobile-nav {
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .exam-content {
+    flex-direction: column;
+  }
+
+  .question-card {
+    min-height: auto;
+  }
+
+  .question-content h3 {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .question-actions {
+    margin-top: 24px;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .exam-header-card {
+    margin-bottom: 12px;
+  }
+
+  .exam-info h2 {
+    font-size: 15px;
+  }
+
+  .question-input {
+    max-width: 100%;
+  }
+
+  .result-score .score-value {
+    font-size: 36px;
+  }
 }
 </style>

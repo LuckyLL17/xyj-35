@@ -5,7 +5,7 @@
     </div>
 
     <el-row :gutter="20" style="margin-bottom: 20px;">
-      <el-col :span="6">
+      <el-col :xs="12" :sm="12" :md="6">
         <el-card class="stat-card">
           <div class="stat-content">
             <el-icon :size="36" color="#409EFF"><Document /></el-icon>
@@ -16,7 +16,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="6">
+      <el-col :xs="12" :sm="12" :md="6">
         <el-card class="stat-card">
           <div class="stat-content">
             <el-icon :size="36" color="#67C23A"><CircleCheck /></el-icon>
@@ -27,7 +27,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="6">
+      <el-col :xs="12" :sm="12" :md="6">
         <el-card class="stat-card">
           <div class="stat-content">
             <el-icon :size="36" color="#E6A23C"><Trophy /></el-icon>
@@ -38,7 +38,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="6">
+      <el-col :xs="12" :sm="12" :md="6">
         <el-card class="stat-card">
           <div class="stat-content">
             <el-icon :size="36" color="#909399"><TrendCharts /></el-icon>
@@ -175,5 +175,25 @@ onMounted(() => {
 .text-danger {
   color: #F56C6C;
   font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .stat-content {
+    gap: 12px;
+  }
+
+  .stat-value {
+    font-size: 20px;
+  }
+
+  .results :deep(.el-row) {
+    margin-left: -10px !important;
+    margin-right: -10px !important;
+  }
+
+  .results :deep(.el-col) {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
 }
 </style>

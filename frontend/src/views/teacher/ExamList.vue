@@ -191,4 +191,15 @@ onMounted(() => {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+@media (max-width: 768px) {
+  .exam-list :deep(.el-table) {
+    font-size: 12px;
+  }
+
+  .exam-list :deep(.el-table .el-button) {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+}
 </style>

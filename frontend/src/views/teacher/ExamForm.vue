@@ -13,7 +13,7 @@
         label-width="120px"
       >
         <el-row :gutter="20">
-          <el-col :span="12">
+          <el-col :xs="24" :sm="12">
             <el-form-item label="考试标题" prop="title">
               <el-input
                 v-model="formData.title"
@@ -52,7 +52,7 @@
         <el-divider content-position="left">基本设置</el-divider>
 
         <el-row :gutter="20">
-          <el-col :span="6">
+          <el-col :xs="12" :sm="6">
             <el-form-item label="总分" prop="totalScore">
               <el-input-number
                 v-model="formData.totalScore"
@@ -62,7 +62,7 @@
               />
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :xs="12" :sm="6">
             <el-form-item label="及格分" prop="passingScore">
               <el-input-number
                 v-model="formData.passingScore"
@@ -72,7 +72,7 @@
               />
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :xs="12" :sm="6">
             <el-form-item label="考试时长" prop="duration">
               <el-input-number
                 v-model="formData.duration"
@@ -83,7 +83,7 @@
               <span style="margin-left: 10px;">分钟</span>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :xs="12" :sm="6">
             <el-form-item label="考试次数" prop="maxAttempts">
               <el-input-number
                 v-model="formData.maxAttempts"
@@ -101,7 +101,7 @@
         <el-divider content-position="left">时间设置（可选）</el-divider>
 
         <el-row :gutter="20">
-          <el-col :span="12">
+          <el-col :xs="24" :sm="12">
             <el-form-item label="开始时间" prop="startTime">
               <el-date-picker
                 v-model="formData.startTime"
@@ -139,7 +139,7 @@
         </el-alert>
 
         <el-row :gutter="20" style="margin-top: 20px;">
-          <el-col :span="6">
+          <el-col :xs="12" :sm="6">
             <el-card shadow="hover">
               <div class="question-config-item">
                 <div class="config-title">单选题</div>
@@ -163,7 +163,7 @@
             </el-card>
           </el-col>
 
-          <el-col :span="6">
+          <el-col :xs="12" :sm="6">
             <el-card shadow="hover">
               <div class="question-config-item">
                 <div class="config-title">多选题</div>
@@ -187,7 +187,7 @@
             </el-card>
           </el-col>
 
-          <el-col :span="6">
+          <el-col :xs="12" :sm="6">
             <el-card shadow="hover">
               <div class="question-config-item">
                 <div class="config-title">判断题</div>
@@ -211,7 +211,7 @@
             </el-card>
           </el-col>
 
-          <el-col :span="6">
+          <el-col :xs="12" :sm="6">
             <el-card shadow="hover">
               <div class="question-config-item">
                 <div class="config-title">填空题</div>
@@ -446,5 +446,27 @@ onMounted(() => {
 
 .question-config-item :deep(.el-form-item__label) {
   width: 80px !important;
+}
+
+@media (max-width: 768px) {
+  .exam-form :deep(.el-form-item__label) {
+    width: 90px !important;
+    font-size: 13px;
+  }
+
+  .question-config-item :deep(.el-form-item__label) {
+    width: 70px !important;
+    font-size: 12px;
+  }
+
+  .config-title {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .exam-form :deep(.el-form-item__label) {
+    width: 80px !important;
+  }
 }
 </style>

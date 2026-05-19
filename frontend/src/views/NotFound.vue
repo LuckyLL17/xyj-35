@@ -66,4 +66,33 @@ const goHome = () => {
   margin-bottom: 30px;
   opacity: 0.9;
 }
+
+@media (max-width: 768px) {
+  .error-code {
+    font-size: 80px;
+  }
+
+  .error-message {
+    font-size: 22px;
+  }
+
+  .error-description {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .error-code {
+    font-size: 60px;
+  }
+
+  .error-message {
+    font-size: 18px;
+  }
+
+  .error-description {
+    font-size: 13px;
+    padding: 0 20px;
+  }
+}
 </style>

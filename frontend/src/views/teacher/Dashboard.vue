@@ -5,7 +5,7 @@
     </div>
 
     <el-row :gutter="20">
-      <el-col :span="6">
+      <el-col :xs="12" :sm="12" :md="6">
         <el-card class="stat-card">
           <div class="stat-content">
             <el-icon :size="40" color="#409EFF"><EditPen /></el-icon>
@@ -16,7 +16,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="6">
+      <el-col :xs="12" :sm="12" :md="6">
         <el-card class="stat-card">
           <div class="stat-content">
             <el-icon :size="40" color="#67C23A"><Document /></el-icon>
@@ -27,7 +27,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="6">
+      <el-col :xs="12" :sm="12" :md="6">
         <el-card class="stat-card">
           <div class="stat-content">
             <el-icon :size="40" color="#E6A23C"><User /></el-icon>
@@ -38,7 +38,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="6">
+      <el-col :xs="12" :sm="12" :md="6">
         <el-card class="stat-card">
           <div class="stat-content">
             <el-icon :size="40" color="#909399"><TrendCharts /></el-icon>
@@ -52,7 +52,7 @@
     </el-row>
 
     <el-row :gutter="20" style="margin-top: 20px;">
-      <el-col :span="12">
+      <el-col :xs="24" :sm="24" :md="12">
         <el-card>
           <template #header>
             <div class="card-header">
@@ -85,7 +85,7 @@
         </el-card>
       </el-col>
 
-      <el-col :span="12">
+      <el-col :xs="24" :sm="24" :md="12">
         <el-card>
           <template #header>
             <div class="card-header">
@@ -266,5 +266,31 @@ onMounted(() => {
   margin-top: 12px;
   font-size: 14px;
   color: #606266;
+}
+
+@media (max-width: 768px) {
+  .stat-content {
+    gap: 12px;
+  }
+
+  .stat-value {
+    font-size: 22px;
+  }
+
+  .dashboard :deep(.el-row) {
+    margin-left: -10px !important;
+    margin-right: -10px !important;
+  }
+
+  .dashboard :deep(.el-col) {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-value {
+    font-size: 20px;
+  }
 }
 </style>

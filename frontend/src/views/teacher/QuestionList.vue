@@ -276,4 +276,25 @@ onMounted(() => {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+@media (max-width: 768px) {
+  .header-actions {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .header-actions .el-button {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .question-list :deep(.el-table) {
+    font-size: 12px;
+  }
+
+  .question-list :deep(.el-table .el-button) {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+}
 </style>

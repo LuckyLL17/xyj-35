@@ -7,7 +7,7 @@
 
     <el-card v-if="result" style="margin-bottom: 20px;">
       <el-row :gutter="20">
-        <el-col :span="12">
+        <el-col :xs="24" :sm="12">
           <div class="result-info">
             <p><span>考试名称：</span>{{ result.examTitle }}</p>
             <p><span>考试分类：</span>{{ result.examCategory || '未分类' }}</p>
@@ -38,25 +38,25 @@
       </template>
       
       <el-row :gutter="20">
-        <el-col :span="6">
+        <el-col :xs="12" :sm="6">
           <div class="stat-item">
             <div class="stat-value">{{ result.scoreBreakdown.totalQuestions }}</div>
             <div class="stat-label">总题数</div>
           </div>
         </el-col>
-        <el-col :span="6">
+        <el-col :xs="12" :sm="6">
           <div class="stat-item">
             <div class="stat-value text-success">{{ result.scoreBreakdown.correctCount }}</div>
             <div class="stat-label">正确</div>
           </div>
         </el-col>
-        <el-col :span="6">
+        <el-col :xs="12" :sm="6">
           <div class="stat-item">
             <div class="stat-value text-danger">{{ result.scoreBreakdown.wrongCount }}</div>
             <div class="stat-label">错误</div>
           </div>
         </el-col>
-        <el-col :span="6">
+        <el-col :xs="12" :sm="6">
           <div class="stat-item">
             <div class="stat-value">{{ result.scoreBreakdown.totalScore }}</div>
             <div class="stat-label">得分</div>
@@ -501,5 +501,52 @@ onMounted(() => {
   border: 1px solid #67C23A;
   color: #67C23A;
   font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .score-display {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .score-value {
+    font-size: 48px;
+  }
+
+  .result-detail :deep(.el-row) {
+    margin-left: -10px !important;
+    margin-right: -10px !important;
+  }
+
+  .result-detail :deep(.el-col) {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  .answer-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .answer-index {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .score-value {
+    font-size: 40px;
+  }
+
+  .stat-value {
+    font-size: 22px;
+  }
+
+  .option-item {
+    font-size: 13px;
+    padding: 6px 8px;
+  }
 }
 </style>

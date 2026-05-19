@@ -1,6 +1,10 @@
 <template>
   <el-container class="layout-container">
-    <el-aside :width="isCollapse ? '64px' : '200px'" class="layout-aside">
+    <el-aside
+      v-show="!isMobile"
+      :width="isCollapse ? '64px' : '200px'"
+      class="layout-aside"
+    >
       <div class="logo">
         <el-icon :size="24" color="#fff"><School /></el-icon>
         <span v-show="!isCollapse">在线考试系统</span>
@@ -39,14 +43,61 @@
         </el-sub-menu>
       </el-menu>
     </el-aside>
+
+    <el-drawer
+      v-model="drawerVisible"
+      direction="ltr"
+      :size="'220px'"
+      :show-close="false"
+      :with-header="false"
+      class="mobile-drawer"
+    >
+      <div class="logo">
+        <el-icon :size="24" color="#fff"><School /></el-icon>
+        <span>在线考试系统</span>
+      </div>
+      
+      <el-menu
+        :default-active="activeMenu"
+        :unique-opened="true"
+        router
+        background-color="#304156"
+        text-color="#bfcbd9"
+        active-text-color="#409EFF"
+        @select="handleMenuSelect"
+      >
+        <el-menu-item index="/teacher/dashboard">
+          <el-icon><HomeFilled /></el-icon>
+          <template #title>首页</template>
+        </el-menu-item>
+        
+        <el-sub-menu index="questions">
+          <template #title>
+            <el-icon><EditPen /></el-icon>
+            <span>题目管理</span>
+          </template>
+          <el-menu-item index="/teacher/questions">题目列表</el-menu-item>
+          <el-menu-item index="/teacher/questions/add">添加题目</el-menu-item>
+        </el-sub-menu>
+        
+        <el-sub-menu index="exams">
+          <template #title>
+            <el-icon><Document /></el-icon>
+            <span>考试管理</span>
+          </template>
+          <el-menu-item index="/teacher/exams">考试列表</el-menu-item>
+          <el-menu-item index="/teacher/exams/add">创建考试</el-menu-item>
+        </el-sub-menu>
+      </el-menu>
+    </el-drawer>
     
     <el-container>
       <el-header class="layout-header">
         <div class="header-left">
-          <el-icon class="collapse-btn" @click="toggleCollapse">
-            <component :is="isCollapse ? 'Expand' : 'Fold'" />
+          <el-icon class="collapse-btn" @click="toggleSidebar">
+            <component :is="isMobile ? 'Expand' : (isCollapse ? 'Expand' : 'Fold')" />
           </el-icon>
-          <el-breadcrumb separator="/">
+          <el-breadcrumb separator="/" v-show="!isMobile">
             <el-breadcrumb-item v-for="item in breadcrumbs" :key="item.path">
               {{ item.title }}
             </el-breadcrumb-item>
@@ -57,7 +108,7 @@
           <el-dropdown @command="handleCommand">
             <span class="user-info">
               <el-icon><UserFilled /></el-icon>
-              {{ userName }}
+              <span v-show="!isMobile">{{ userName }}</span>
             </span>
             <template #dropdown>
               <el-dropdown-menu>
@@ -77,7 +128,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useUserStore } from '@/store/userStore'
@@ -87,6 +138,8 @@ const router = useRouter()
 const userStore = useUserStore()
 
 const isCollapse = ref(false)
+const isMobile = ref(false)
+const drawerVisible = ref(false)
 const activeMenu = ref(route.path)
 
 const userName = computed(() => userStore.userName)
@@ -99,6 +152,13 @@ const breadcrumbs = computed(() => {
   }))
 })
 
+const checkMobile = () => {
+  isMobile.value = window.innerWidth <= 768
+  if (!isMobile.value) {
+    drawerVisible.value = false
+  }
+}
+
 watch(
   () => route.path,
   (path) => {
@@ -106,8 +166,18 @@ watch(
   }
 )
 
-const toggleCollapse = () => {
-  isCollapse.value = !isCollapse.value
+const toggleSidebar = () => {
+  if (isMobile.value) {
+    drawerVisible.value = !drawerVisible.value
+  } else {
+    isCollapse.value = !isCollapse.value
+  }
+}
+
+const handleMenuSelect = () => {
+  if (isMobile.value) {
+    drawerVisible.value = false
+  }
 }
 
 const handleCommand = async (command) => {
@@ -126,6 +196,15 @@ const handleCommand = async (command) => {
     }
   }
 }
+
+onMounted(() => {
+  checkMobile()
+  window.addEventListener('resize', checkMobile)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', checkMobile)
+})
 </script>
 
 <style scoped>
@@ -136,6 +215,7 @@ const handleCommand = async (command) => {
 .layout-aside {
   background-color: #304156;
   transition: width 0.3s;
+  overflow: hidden;
 }
 
 .logo {
@@ -195,5 +275,33 @@ const handleCommand = async (command) => {
   background-color: #f0f2f5;
   padding: 20px;
   overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .layout-header {
+    padding: 0 12px;
+    height: 50px !important;
+  }
+
+  .header-left {
+    gap: 12px;
+  }
+
+  .layout-main {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .layout-main {
+    padding: 8px;
+  }
+}
+</style>
+
+<style>
+.mobile-drawer .el-drawer__body {
+  padding: 0;
+  background-color: #304156;
 }
 </style>

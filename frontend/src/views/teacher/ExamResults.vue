@@ -13,31 +13,31 @@
 
     <el-card v-if="exam" style="margin-bottom: 20px;">
       <el-row :gutter="20">
-        <el-col :span="6">
+        <el-col :xs="12" :sm="12" :md="6">
           <div class="stat-item">
             <div class="stat-value">{{ exam.title }}</div>
             <div class="stat-label">考试名称</div>
           </div>
         </el-col>
-        <el-col :span="4">
+        <el-col :xs="6" :sm="6" :md="4">
           <div class="stat-item">
             <div class="stat-value">{{ exam.totalScore }}分</div>
             <div class="stat-label">总分</div>
           </div>
         </el-col>
-        <el-col :span="4">
+        <el-col :xs="6" :sm="6" :md="4">
           <div class="stat-item">
             <div class="stat-value">{{ exam.passingScore }}分</div>
             <div class="stat-label">及格分</div>
           </div>
         </el-col>
-        <el-col :span="4">
+        <el-col :xs="6" :sm="6" :md="4">
           <div class="stat-item">
             <div class="stat-value">{{ exam.registeredStudents?.length || 0 }}人</div>
             <div class="stat-label">报名人数</div>
           </div>
         </el-col>
-        <el-col :span="6">
+        <el-col :xs="6" :sm="6" :md="6">
           <div class="stat-item">
             <div class="stat-value">{{ stats?.averageScore?.toFixed(1) || 0 }}分</div>
             <div class="stat-label">平均分</div>
@@ -182,5 +182,25 @@ onMounted(() => {
 .text-danger {
   color: #F56C6C;
   font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .header-actions {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .exam-results :deep(.el-table) {
+    font-size: 12px;
+  }
+
+  .exam-results :deep(.el-table .el-button) {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+
+  .stat-value {
+    font-size: 15px;
+  }
 }
 </style>
