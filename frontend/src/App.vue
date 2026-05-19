@@ -156,4 +156,79 @@ html, body {
     display: block !important;
   }
 }
+
+/* 表格响应式容器 */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-responsive .el-table {
+  min-width: 800px;
+}
+
+/* 卡片响应式优化 */
+.el-card {
+  transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 768px) {
+  .el-card {
+    border-radius: 6px;
+  }
+  
+  .el-card :deep(.el-card__body) {
+    padding: 12px;
+  }
+  
+  .el-card :deep(.el-card__header) {
+    padding: 12px;
+  }
+}
+
+/* 表单响应式优化 */
+@media screen and (max-width: 768px) {
+  .el-form--inline .el-form-item {
+    margin-right: 0;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  
+  .el-form--inline .el-form-item__content {
+    width: 100%;
+  }
+  
+  .el-form--inline .el-input,
+  .el-form--inline .el-select {
+    width: 100% !important;
+  }
+}
+
+/* 对话框响应式优化 */
+.el-dialog {
+  max-width: 95vw !important;
+}
+
+@media screen and (max-width: 768px) {
+  .el-dialog {
+    margin: 5vh auto !important;
+  }
+  
+  .el-dialog :deep(.el-dialog__header) {
+    padding: 16px;
+  }
+  
+  .el-dialog :deep(.el-dialog__body) {
+    padding: 16px;
+  }
+  
+  .el-dialog :deep(.el-dialog__footer) {
+    padding: 16px;
+  }
+  
+  .el-dialog :deep(.el-form-item__label) {
+    width: 80px !important;
+  }
+}
 </style>

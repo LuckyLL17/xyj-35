@@ -4,8 +4,8 @@
       <h2 class="page-title">我的成绩</h2>
     </div>
 
-    <el-row :gutter="20" style="margin-bottom: 20px;">
-      <el-col :span="6">
+    <div class="stats-grid" style="margin-bottom: 20px;">
+      <div class="stat-item">
         <el-card class="stat-card">
           <div class="stat-content">
             <el-icon :size="36" color="#409EFF"><Document /></el-icon>
@@ -15,8 +15,8 @@
             </div>
           </div>
         </el-card>
-      </el-col>
-      <el-col :span="6">
+      </div>
+      <div class="stat-item">
         <el-card class="stat-card">
           <div class="stat-content">
             <el-icon :size="36" color="#67C23A"><CircleCheck /></el-icon>
@@ -26,8 +26,8 @@
             </div>
           </div>
         </el-card>
-      </el-col>
-      <el-col :span="6">
+      </div>
+      <div class="stat-item">
         <el-card class="stat-card">
           <div class="stat-content">
             <el-icon :size="36" color="#E6A23C"><Trophy /></el-icon>
@@ -37,8 +37,8 @@
             </div>
           </div>
         </el-card>
-      </el-col>
-      <el-col :span="6">
+      </div>
+      <div class="stat-item">
         <el-card class="stat-card">
           <div class="stat-content">
             <el-icon :size="36" color="#909399"><TrendCharts /></el-icon>
@@ -48,49 +48,51 @@
             </div>
           </div>
         </el-card>
-      </el-col>
-    </el-row>
+      </div>
+    </div>
 
     <el-card>
-      <el-table :data="results" stripe style="width: 100%">
-        <el-table-column prop="examTitle" label="考试名称" min-width="200" />
-        <el-table-column prop="examCategory" label="分类" width="150">
-          <template #default="scope">
-            {{ scope.row.examCategory || '未分类' }}
-          </template>
-        </el-table-column>
-        <el-table-column prop="score" label="得分" width="100">
-          <template #default="scope">
-            <span :class="scope.row.isPassed ? 'text-success' : 'text-danger'">
-              {{ scope.row.score }}分
-            </span>
-          </template>
-        </el-table-column>
-        <el-table-column prop="totalScore" label="总分" width="80">
-          <template #default="scope">
-            {{ scope.row.totalScore }}分
-          </template>
-        </el-table-column>
-        <el-table-column label="状态" width="100">
-          <template #default="scope">
-            <el-tag :type="scope.row.isPassed ? 'success' : 'danger'">
-              {{ scope.row.isPassed ? '及格' : '不及格' }}
-            </el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column prop="submittedAt" label="提交时间" width="180">
-          <template #default="scope">
-            {{ scope.row.submittedAt ? formatDate(scope.row.submittedAt) : '-' }}
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" width="100">
-          <template #default="scope">
-            <el-button type="primary" link @click="viewDetail(scope.row)">
-              查看详情
-            </el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+      <div class="table-responsive">
+        <el-table :data="results" stripe style="width: 100%">
+          <el-table-column prop="examTitle" label="考试名称" min-width="200" />
+          <el-table-column prop="examCategory" label="分类" width="150">
+            <template #default="scope">
+              {{ scope.row.examCategory || '未分类' }}
+            </template>
+          </el-table-column>
+          <el-table-column prop="score" label="得分" width="100">
+            <template #default="scope">
+              <span :class="scope.row.isPassed ? 'text-success' : 'text-danger'">
+                {{ scope.row.score }}分
+              </span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="totalScore" label="总分" width="80">
+            <template #default="scope">
+              {{ scope.row.totalScore }}分
+            </template>
+          </el-table-column>
+          <el-table-column label="状态" width="100">
+            <template #default="scope">
+              <el-tag :type="scope.row.isPassed ? 'success' : 'danger'">
+                {{ scope.row.isPassed ? '及格' : '不及格' }}
+              </el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column prop="submittedAt" label="提交时间" width="180">
+            <template #default="scope">
+              {{ scope.row.submittedAt ? formatDate(scope.row.submittedAt) : '-' }}
+            </template>
+          </el-table-column>
+          <el-table-column label="操作" width="100">
+            <template #default="scope">
+              <el-button type="primary" link @click="viewDetail(scope.row)">
+                查看详情
+              </el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
 
       <el-empty v-if="results.length === 0" description="暂无考试成绩" />
     </el-card>
@@ -141,8 +143,18 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.stats-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stat-item {
+  width: 100%;
+}
+
 .stat-card {
-  margin-bottom: 20px;
+  height: 100%;
 }
 
 .stat-content {
@@ -177,10 +189,36 @@ onMounted(() => {
   font-weight: 600;
 }
 
+/* ============ 平板适配 ============ */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .stats-grid {
+    gap: 16px;
+  }
+}
+
+/* ============ 桌面端适配 ============ */
+@media screen and (min-width: 1025px) {
+  .stats-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .stat-item {
+    width: calc(50% - 10px);
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .stat-item {
+    width: calc(25% - 15px);
+  }
+}
+
 /* ============ 移动端适配 ============ */
 @media screen and (max-width: 768px) {
-  .stat-card {
-    margin-bottom: 12px;
+  .stats-grid {
+    gap: 10px;
   }
   
   .stat-content {

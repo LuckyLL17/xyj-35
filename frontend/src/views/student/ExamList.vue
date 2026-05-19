@@ -10,8 +10,8 @@
           <el-empty description="暂无可报名的考试" />
         </el-card>
         
-        <el-row :gutter="20" v-else>
-          <el-col :span="8" v-for="exam in availableExams" :key="exam.id">
+        <div class="exam-grid" v-else>
+          <div class="exam-item" v-for="exam in availableExams" :key="exam.id">
             <el-card class="exam-card">
               <div class="exam-header">
                 <span class="exam-title">{{ exam.title }}</span>
@@ -34,8 +34,8 @@
                 </el-button>
               </div>
             </el-card>
-          </el-col>
-        </el-row>
+          </div>
+        </div>
       </el-tab-pane>
       
       <el-tab-pane label="已报名考试" name="registered">
@@ -43,8 +43,8 @@
           <el-empty description="您还没有报名任何考试" />
         </el-card>
         
-        <el-row :gutter="20" v-else>
-          <el-col :span="8" v-for="exam in registeredExams" :key="exam.id">
+        <div class="exam-grid" v-else>
+          <div class="exam-item" v-for="exam in registeredExams" :key="exam.id">
             <el-card class="exam-card">
               <div class="exam-header">
                 <span class="exam-title">{{ exam.title }}</span>
@@ -91,8 +91,8 @@
                 </template>
               </div>
             </el-card>
-          </el-col>
-        </el-row>
+          </div>
+        </div>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -236,8 +236,18 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.exam-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.exam-item {
+  width: 100%;
+}
+
 .exam-card {
-  margin-bottom: 20px;
+  height: 100%;
 }
 
 .exam-header {
@@ -283,10 +293,32 @@ onMounted(() => {
   border-top: 1px solid #EBEEF5;
 }
 
+.exam-footer .el-button {
+  width: 100%;
+}
+
+/* ============ 平板适配 ============ */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .exam-grid {
+    gap: 20px;
+  }
+  
+  .exam-header {
+    flex-direction: row;
+  }
+}
+
+/* ============ 桌面端适配 ============ */
+@media screen and (min-width: 1025px) {
+  .exam-grid {
+    gap: 24px;
+  }
+}
+
 /* ============ 移动端适配 ============ */
 @media screen and (max-width: 768px) {
-  .exam-card {
-    margin-bottom: 12px;
+  .exam-grid {
+    gap: 12px;
   }
   
   .exam-header {
@@ -308,13 +340,13 @@ onMounted(() => {
   .exam-footer {
     padding-top: 12px;
   }
-  
-  .exam-footer .el-button {
-    width: 100%;
-  }
 }
 
 @media screen and (max-width: 480px) {
+  .exam-grid {
+    gap: 10px;
+  }
+  
   .exam-title {
     font-size: 14px;
   }

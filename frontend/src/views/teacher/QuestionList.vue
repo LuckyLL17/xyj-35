@@ -53,44 +53,46 @@
         </el-form-item>
       </el-form>
 
-      <el-table :data="questions" stripe style="width: 100%">
-        <el-table-column type="index" label="序号" width="60" />
-        <el-table-column prop="content" label="题目内容" min-width="300">
-          <template #default="scope">
-            <span class="question-content">{{ scope.row.content }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column prop="type" label="类型" width="100">
-          <template #default="scope">
-            <el-tag :type="getQuestionTypeTag(scope.row.type)" size="small">
-              {{ getQuestionTypeName(scope.row.type) }}
-            </el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column prop="category" label="分类" width="120">
-          <template #default="scope">
-            {{ scope.row.category || '未分类' }}
-          </template>
-        </el-table-column>
-        <el-table-column prop="score" label="分值" width="80">
-          <template #default="scope">
-            {{ scope.row.score }}分
-          </template>
-        </el-table-column>
-        <el-table-column prop="difficulty" label="难度" width="80">
-          <template #default="scope">
-            <el-tag :type="getDifficultyTag(scope.row.difficulty)" size="small">
-              {{ getDifficultyText(scope.row.difficulty) }}
-            </el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" width="150" fixed="right">
-          <template #default="scope">
-            <el-button type="primary" link @click="editQuestion(scope.row)">编辑</el-button>
-            <el-button type="danger" link @click="deleteQuestion(scope.row)">删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+      <div class="table-responsive">
+        <el-table :data="questions" stripe style="width: 100%">
+          <el-table-column type="index" label="序号" width="60" />
+          <el-table-column prop="content" label="题目内容" min-width="300">
+            <template #default="scope">
+              <span class="question-content">{{ scope.row.content }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="type" label="类型" width="100">
+            <template #default="scope">
+              <el-tag :type="getQuestionTypeTag(scope.row.type)" size="small">
+                {{ getQuestionTypeName(scope.row.type) }}
+              </el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column prop="category" label="分类" width="120">
+            <template #default="scope">
+              {{ scope.row.category || '未分类' }}
+            </template>
+          </el-table-column>
+          <el-table-column prop="score" label="分值" width="80">
+            <template #default="scope">
+              {{ scope.row.score }}分
+            </template>
+          </el-table-column>
+          <el-table-column prop="difficulty" label="难度" width="80">
+            <template #default="scope">
+              <el-tag :type="getDifficultyTag(scope.row.difficulty)" size="small">
+                {{ getDifficultyText(scope.row.difficulty) }}
+              </el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column label="操作" width="150" fixed="right">
+            <template #default="scope">
+              <el-button type="primary" link @click="editQuestion(scope.row)">编辑</el-button>
+              <el-button type="danger" link @click="deleteQuestion(scope.row)">删除</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
 
       <el-empty v-if="questions.length === 0" description="暂无题目" />
     </el-card>
@@ -268,6 +270,7 @@ onMounted(() => {
 .header-actions {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .question-content {
@@ -275,5 +278,35 @@ onMounted(() => {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* ============ 响应式适配 ============ */
+@media screen and (max-width: 1024px) {
+  .header-actions {
+    gap: 8px;
+  }
+  
+  .header-actions .el-button {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .header-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  .header-actions .el-button {
+    flex: 1;
+    min-width: 0;
+  }
 }
 </style>
