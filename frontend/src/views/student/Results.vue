@@ -176,4 +176,29 @@ onMounted(() => {
   color: #F56C6C;
   font-weight: 600;
 }
+
+/* ============ 移动端适配 ============ */
+@media screen and (max-width: 768px) {
+  .stat-card {
+    margin-bottom: 12px;
+  }
+  
+  .stat-content {
+    gap: 12px;
+  }
+  
+  .stat-value {
+    font-size: 20px;
+  }
+  
+  .stat-label {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .stat-value {
+    font-size: 18px;
+  }
+}
 </style>

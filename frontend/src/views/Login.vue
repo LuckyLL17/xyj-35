@@ -124,10 +124,12 @@ const handleLogin = async () => {
   justify-content: center;
   align-items: center;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
 }
 
 .login-box {
   width: 420px;
+  max-width: 100%;
   padding: 40px;
   background: #fff;
   border-radius: 12px;
@@ -175,5 +177,52 @@ const handleLogin = async () => {
 .login-tips p:first-child {
   font-weight: 600;
   margin-bottom: 8px;
+}
+
+/* ============ 移动端适配 ============ */
+@media screen and (max-width: 768px) {
+  .login-container {
+    padding: 16px;
+    align-items: flex-start;
+    padding-top: 60px;
+  }
+  
+  .login-box {
+    width: 100%;
+    padding: 24px 20px;
+    border-radius: 8px;
+  }
+  
+  .login-header {
+    margin-bottom: 28px;
+  }
+  
+  .login-header h1 {
+    font-size: 22px;
+  }
+  
+  .login-header p {
+    font-size: 12px;
+  }
+  
+  .login-tips {
+    padding: 12px;
+    font-size: 11px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .login-container {
+    padding: 12px;
+    padding-top: 40px;
+  }
+  
+  .login-box {
+    padding: 20px 16px;
+  }
+  
+  .login-header h1 {
+    font-size: 20px;
+  }
 }
 </style>

@@ -68,4 +68,92 @@ html, body {
 .form-container {
   max-width: 800px;
 }
+
+/* ============ 移动端适配 ============ */
+
+/* 平板设备 (≤1024px) */
+@media screen and (max-width: 1024px) {
+  .page-title {
+    font-size: 18px;
+  }
+  
+  .card-container {
+    padding: 16px;
+  }
+}
+
+/* 手机设备 (≤768px) */
+@media screen and (max-width: 768px) {
+  .el-table {
+    font-size: 12px;
+  }
+  
+  .el-table .el-table__cell {
+    padding: 8px 4px;
+  }
+  
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .page-title {
+    font-size: 16px;
+  }
+  
+  .search-form {
+    flex-direction: column;
+  }
+  
+  .search-form .el-form-item {
+    margin-bottom: 10px;
+  }
+  
+  .card-container {
+    padding: 12px;
+  }
+  
+  .form-container {
+    max-width: 100%;
+  }
+  
+  .el-pagination {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+
+/* 小屏手机 (≤480px) */
+@media screen and (max-width: 480px) {
+  .page-title {
+    font-size: 15px;
+  }
+  
+  .card-container {
+    padding: 10px;
+  }
+}
+
+/* 隐藏元素的响应式工具类 */
+.hidden-sm {
+  display: block;
+}
+
+@media screen and (max-width: 768px) {
+  .hidden-sm {
+    display: none !important;
+  }
+}
+
+.visible-sm {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .visible-sm {
+    display: block !important;
+  }
+}
 </style>

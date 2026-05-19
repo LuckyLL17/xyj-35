@@ -4,17 +4,44 @@
       <div class="exam-header">
         <div class="exam-info">
           <h2>{{ examData?.exam?.title }}</h2>
-          <p>总分：{{ examData?.exam?.totalScore }}分 | 及格分：{{ examData?.exam?.passingScore }}分</p>
+          <p class="hidden-sm">总分：{{ examData?.exam?.totalScore }}分 | 及格分：{{ examData?.exam?.passingScore }}分</p>
         </div>
         <div class="timer">
-          <el-icon :size="24"><Clock /></el-icon>
+          <el-icon :size="20"><Clock /></el-icon>
           <span class="time-text">{{ formatTime(remainingTime) }}</span>
         </div>
       </div>
     </el-card>
 
+    <!-- 移动端题目导航折叠面板 -->
+    <el-collapse class="visible-sm" v-if="examData?.questions?.length > 0">
+      <el-collapse-item title="题目导航" name="nav">
+        <div class="question-grid">
+          <div
+            v-for="(q, index) in examData?.questions || []"
+            :key="q.id"
+            :class="['question-item', {
+              'active': currentIndex === index,
+              'answered': answers[q.id] !== undefined && answers[q.id] !== null && answers[q.id] !== '',
+              'current': currentIndex === index
+            }]"
+            @click="currentIndex = index"
+          >
+            {{ index + 1 }}
+            <span v-if="answers[q.id] !== undefined && answers[q.id] !== null && answers[q.id] !== ''" class="answered-dot"></span>
+          </div>
+        </div>
+        <div class="nav-footer">
+          <p>已答：{{ answeredCount }} 题</p>
+          <p>未答：{{ unansweredCount }} 题</p>
+        </div>
+        <p>共 {{ examData?.questions?.length || 0 }} 题</p>
+      </el-collapse-item>
+    </el-collapse>
+
     <div class="exam-content">
-      <el-aside width="240px" class="question-nav">
+      <!-- 桌面端侧边栏题目导航 -->
+      <el-aside width="240px" class="question-nav hidden-sm">
         <el-card>
           <template #header>
             <div class="nav-header">
@@ -130,7 +157,7 @@
     <el-dialog
       v-model="submitDialogVisible"
       title="确认交卷"
-      width="400px"
+      width="90%"
     >
       <el-alert
         :title="`您已完成 ${answeredCount} 题，还有 ${unansweredCount} 题未作答，确定要交卷吗？`"
@@ -149,7 +176,7 @@
     <el-dialog
       v-model="resultDialogVisible"
       title="考试结果"
-      width="500px"
+      width="90%"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
     >
@@ -563,5 +590,113 @@ onUnmounted(() => {
   margin: 12px 0;
   font-size: 15px;
   color: #606266;
+}
+
+/* ============ 移动端适配 ============ */
+@media screen and (max-width: 768px) {
+  .exam-header-card {
+    margin-bottom: 12px;
+  }
+  
+  .exam-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .exam-info h2 {
+    font-size: 18px;
+  }
+  
+  .timer {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  
+  .time-text {
+    font-size: 20px;
+  }
+  
+  .exam-content {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .question-card {
+    min-height: 300px;
+  }
+  
+  .question-content h3 {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  
+  .option-item {
+    margin: 10px 0;
+    font-size: 14px;
+  }
+  
+  .question-actions {
+    margin-top: 24px;
+    gap: 12px;
+  }
+  
+  .question-actions .el-button {
+    flex: 1;
+  }
+  
+  .submit-card {
+    margin-top: 12px;
+  }
+  
+  .submit-card .el-button {
+    width: 100%;
+  }
+  
+  .score-value {
+    font-size: 36px;
+  }
+  
+  .score-label {
+    font-size: 16px;
+  }
+  
+  .question-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+  }
+  
+  .question-item {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .exam-info h2 {
+    font-size: 16px;
+  }
+  
+  .time-text {
+    font-size: 18px;
+  }
+  
+  .question-content h3 {
+    font-size: 14px;
+  }
+  
+  .option-item {
+    font-size: 13px;
+  }
+  
+  .question-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  
+  .question-item {
+    width: 30px;
+    height: 30px;
+  }
 }
 </style>

@@ -282,4 +282,45 @@ onMounted(() => {
   padding-top: 16px;
   border-top: 1px solid #EBEEF5;
 }
+
+/* ============ 移动端适配 ============ */
+@media screen and (max-width: 768px) {
+  .exam-card {
+    margin-bottom: 12px;
+  }
+  
+  .exam-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  
+  .exam-title {
+    font-size: 15px;
+  }
+  
+  .exam-info p {
+    font-size: 13px;
+    margin: 6px 0;
+  }
+  
+  .exam-footer {
+    padding-top: 12px;
+  }
+  
+  .exam-footer .el-button {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .exam-title {
+    font-size: 14px;
+  }
+  
+  .exam-info p {
+    font-size: 12px;
+  }
+}
 </style>
