@@ -94,6 +94,19 @@
 
   .el-form-item__label {
     font-size: 14px;
+    width: auto !important;
+    text-align: left !important;
+    padding-bottom: 6px;
+  }
+
+  .el-form-item__content {
+    width: 100% !important;
+    flex: 1 1 100% !important;
+    min-width: 0;
+  }
+
+  .el-form-item--horizontal {
+    display: block;
   }
 
   .el-input__wrapper,
@@ -118,10 +131,16 @@
     padding-left: 10px;
     padding-right: 10px;
     font-size: 13px;
+    white-space: nowrap;
   }
 
   .el-table th .cell {
     font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .el-table__empty-block {
+    width: 100%;
   }
 
   .el-pagination {
@@ -142,6 +161,48 @@
   .el-menu--collapse {
     width: 0;
     overflow: hidden;
+  }
+
+  .el-row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    row-gap: 12px;
+  }
+
+  .el-row > [class*='el-col-'] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .el-col-24 {
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+  }
+
+  .el-col-12,
+  .el-col-16,
+  .el-col-20 {
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .page-header > * {
+    width: 100%;
+  }
+
+  .page-header .el-button {
+    width: 100%;
+  }
+
+  .card-container,
+  .el-card {
+    width: 100%;
   }
 }
 
