@@ -23,6 +23,7 @@
         </el-form-item>
       </el-form>
 
+      <div class="table-wrap">
       <el-table :data="users" stripe style="width: 100%">
         <el-table-column type="index" label="序号" width="60" />
         <el-table-column prop="username" label="用户名" width="120" />
@@ -72,6 +73,9 @@
           </template>
         </el-table-column>
       </el-table>
+
+      </el-table>
+      </div>
 
       <el-empty v-if="users.length === 0" description="暂无用户" />
     </el-card>
@@ -176,4 +180,23 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.search-form .el-form-item {
+  margin-right: 0;
+}
+
+.search-form .el-select {
+  min-width: 160px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+  .search-form .el-select {
+    width: 100%;
+    min-width: 0;
+  }
+}
 </style>

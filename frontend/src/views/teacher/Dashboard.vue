@@ -5,7 +5,7 @@
     </div>
 
     <el-row :gutter="20">
-      <el-col :span="6">
+      <el-col :xs="24" :sm="12" :md="6">
         <el-card class="stat-card">
           <div class="stat-content">
             <el-icon :size="40" color="#409EFF"><EditPen /></el-icon>
@@ -16,7 +16,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="6">
+      <el-col :xs="24" :sm="12" :md="6">
         <el-card class="stat-card">
           <div class="stat-content">
             <el-icon :size="40" color="#67C23A"><Document /></el-icon>
@@ -27,7 +27,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="6">
+      <el-col :xs="24" :sm="12" :md="6">
         <el-card class="stat-card">
           <div class="stat-content">
             <el-icon :size="40" color="#E6A23C"><User /></el-icon>
@@ -38,7 +38,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="6">
+      <el-col :xs="24" :sm="12" :md="6">
         <el-card class="stat-card">
           <div class="stat-content">
             <el-icon :size="40" color="#909399"><TrendCharts /></el-icon>
@@ -52,7 +52,7 @@
     </el-row>
 
     <el-row :gutter="20" style="margin-top: 20px;">
-      <el-col :span="12">
+      <el-col :xs="24" :md="12">
         <el-card>
           <template #header>
             <div class="card-header">
@@ -60,32 +60,34 @@
               <el-button type="primary" link @click="$router.push('/teacher/exams/add')">创建考试</el-button>
             </div>
           </template>
-          <el-table :data="recentExams" stripe style="width: 100%">
-            <el-table-column prop="title" label="考试名称" />
-            <el-table-column prop="category" label="分类">
-              <template #default="scope">
-                {{ scope.row.category || '未分类' }}
-              </template>
-            </el-table-column>
-            <el-table-column prop="status" label="状态" width="100">
-              <template #default="scope">
-                <el-tag :type="getStatusType(scope.row.status)">
-                  {{ getStatusText(scope.row.status) }}
-                </el-tag>
-              </template>
-            </el-table-column>
-            <el-table-column label="操作" width="150">
-              <template #default="scope">
-                <el-button type="primary" link @click="editExam(scope.row)">编辑</el-button>
-                <el-button type="primary" link @click="viewResults(scope.row)" v-if="scope.row.status === 'published'">成绩</el-button>
-              </template>
-            </el-table-column>
-          </el-table>
+          <div class="table-wrap">
+            <el-table :data="recentExams" stripe style="width: 100%">
+              <el-table-column prop="title" label="考试名称" />
+              <el-table-column prop="category" label="分类">
+                <template #default="scope">
+                  {{ scope.row.category || '未分类' }}
+                </template>
+              </el-table-column>
+              <el-table-column prop="status" label="状态" width="100">
+                <template #default="scope">
+                  <el-tag :type="getStatusType(scope.row.status)">
+                    {{ getStatusText(scope.row.status) }}
+                  </el-tag>
+                </template>
+              </el-table-column>
+              <el-table-column label="操作" width="150" fixed="right">
+                <template #default="scope">
+                  <el-button type="primary" link @click="editExam(scope.row)">编辑</el-button>
+                  <el-button type="primary" link @click="viewResults(scope.row)" v-if="scope.row.status === 'published'">成绩</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
           <el-empty v-if="recentExams.length === 0" description="暂无考试" />
         </el-card>
       </el-col>
 
-      <el-col :span="12">
+      <el-col :xs="24" :md="12">
         <el-card>
           <template #header>
             <div class="card-header">
@@ -93,7 +95,7 @@
             </div>
           </template>
           <el-row :gutter="20">
-            <el-col :span="12">
+            <el-col :xs="24" :sm="12">
               <el-card
                 class="action-card"
                 hover-shadow
@@ -103,7 +105,7 @@
                 <div class="action-text">添加题目</div>
               </el-card>
             </el-col>
-            <el-col :span="12">
+            <el-col :xs="24" :sm="12">
               <el-card
                 class="action-card"
                 hover-shadow
@@ -113,7 +115,7 @@
                 <div class="action-text">创建考试</div>
               </el-card>
             </el-col>
-            <el-col :span="12">
+            <el-col :xs="24" :sm="12">
               <el-card
                 class="action-card"
                 hover-shadow
@@ -123,7 +125,7 @@
                 <div class="action-text">题目管理</div>
               </el-card>
             </el-col>
-            <el-col :span="12">
+            <el-col :xs="24" :sm="12">
               <el-card
                 class="action-card"
                 hover-shadow
@@ -193,20 +195,20 @@ const loadDashboardData = async () => {
       teacherApi.getQuestions(),
       teacherApi.getExams()
     ])
-    
+
     const questions = questionsRes.data.data || []
     const exams = examsRes.data.data || []
-    
+
     stats.value.questionCount = questions.length
     stats.value.examCount = exams.length
     stats.value.publishedExamCount = exams.filter(e => e.status === 'published').length
-    
+
     let studentCount = 0
     exams.forEach(exam => {
       studentCount += exam.registeredStudents?.length || 0
     })
     stats.value.studentCount = studentCount
-    
+
     recentExams.value = exams.slice(0, 5)
   } catch (error) {
     console.error('加载数据失败:', error)
@@ -231,6 +233,7 @@ onMounted(() => {
 
 .stat-info {
   flex: 1;
+  min-width: 0;
 }
 
 .stat-value {
@@ -251,6 +254,11 @@ onMounted(() => {
   align-items: center;
 }
 
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .action-card {
   text-align: center;
   cursor: pointer;
@@ -266,5 +274,23 @@ onMounted(() => {
   margin-top: 12px;
   font-size: 14px;
   color: #606266;
+}
+
+@media (max-width: 768px) {
+  .stat-content {
+    gap: 12px;
+  }
+
+  .stat-value {
+    font-size: 22px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+  }
+
+  .card-header {
+    font-size: 14px;
+  }
 }
 </style>

@@ -9,6 +9,7 @@
     </div>
 
     <el-card>
+      <div class="table-wrap">
       <el-table :data="categories" stripe style="width: 100%">
         <el-table-column type="index" label="序号" width="60" />
         <el-table-column prop="name" label="分类名称" width="200" />
@@ -37,6 +38,7 @@
           </template>
         </el-table-column>
       </el-table>
+      </div>
 
       <el-empty v-if="categories.length === 0" description="暂无分类" />
     </el-card>
@@ -215,4 +217,24 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+  :deep(.el-dialog) {
+    width: calc(100vw - 24px) !important;
+    margin: 12px auto !important;
+  }
+
+  :deep(.el-form-item) {
+    margin-bottom: 14px;
+  }
+
+  :deep(.el-form-item__label) {
+    width: 70px;
+    flex-shrink: 0;
+  }
+}
 </style>

@@ -119,15 +119,18 @@ const handleLogin = async () => {
 
 <style scoped>
 .login-container {
-  height: 100vh;
+  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 .login-box {
   width: 420px;
+  max-width: 100%;
   padding: 40px;
   background: #fff;
   border-radius: 12px;
@@ -158,6 +161,7 @@ const handleLogin = async () => {
 
 .login-button {
   width: 100%;
+  min-height: 48px;
 }
 
 .login-tips {
@@ -170,10 +174,63 @@ const handleLogin = async () => {
 
 .login-tips p {
   margin: 4px 0;
+  word-break: break-all;
 }
 
 .login-tips p:first-child {
   font-weight: 600;
   margin-bottom: 8px;
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    padding: 16px;
+    align-items: flex-start;
+    padding-top: 48px;
+  }
+
+  .login-box {
+    width: 100%;
+    padding: 28px 20px;
+    border-radius: 10px;
+  }
+
+  .login-header {
+    margin-bottom: 28px;
+  }
+
+  .login-header h1 {
+    font-size: 22px;
+  }
+
+  .login-header p {
+    font-size: 13px;
+  }
+
+  .login-button {
+    min-height: 48px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 12px;
+    padding-top: 32px;
+  }
+
+  .login-box {
+    padding: 22px 16px;
+    border-radius: 8px;
+  }
+
+  .login-header h1 {
+    font-size: 20px;
+  }
+
+  .login-tips {
+    padding: 12px;
+    font-size: 11px;
+  }
 }
 </style>
