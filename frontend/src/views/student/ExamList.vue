@@ -10,8 +10,8 @@
           <el-empty description="暂无可报名的考试" />
         </el-card>
         
-        <el-row :gutter="20" v-else>
-          <el-col :span="8" v-for="exam in availableExams" :key="exam.id">
+        <el-row :gutter="16" v-else>
+          <el-col :xs="24" :sm="12" :md="8" v-for="exam in availableExams" :key="exam.id">
             <el-card class="exam-card">
               <div class="exam-header">
                 <span class="exam-title">{{ exam.title }}</span>
@@ -43,8 +43,8 @@
           <el-empty description="您还没有报名任何考试" />
         </el-card>
         
-        <el-row :gutter="20" v-else>
-          <el-col :span="8" v-for="exam in registeredExams" :key="exam.id">
+        <el-row :gutter="16" v-else>
+          <el-col :xs="24" :sm="12" :md="8" v-for="exam in registeredExams" :key="exam.id">
             <el-card class="exam-card">
               <div class="exam-header">
                 <span class="exam-title">{{ exam.title }}</span>
@@ -238,12 +238,14 @@ onMounted(() => {
 <style scoped>
 .exam-card {
   margin-bottom: 20px;
+  height: 100%;
 }
 
 .exam-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  gap: 8px;
   margin-bottom: 16px;
 }
 
@@ -251,6 +253,10 @@ onMounted(() => {
   font-size: 16px;
   font-weight: 600;
   color: #303133;
+  line-height: 1.4;
+  flex: 1 1 auto;
+  min-width: 0;
+  word-break: break-all;
 }
 
 .exam-info {
@@ -261,6 +267,7 @@ onMounted(() => {
   margin: 8px 0;
   color: #606266;
   font-size: 14px;
+  word-break: break-all;
 }
 
 .exam-info span {
@@ -281,5 +288,35 @@ onMounted(() => {
   text-align: center;
   padding-top: 16px;
   border-top: 1px solid #EBEEF5;
+}
+
+@media (max-width: 768px) {
+  .exam-header {
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .exam-title {
+    font-size: 15px;
+  }
+
+  .exam-info p {
+    font-size: 13px;
+  }
+
+  .exam-footer .el-button {
+    width: 100%;
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .exam-title {
+    font-size: 14px;
+  }
+
+  .exam-info p {
+    font-size: 12px;
+  }
 }
 </style>

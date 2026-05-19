@@ -5,7 +5,7 @@
     </div>
 
     <el-row :gutter="20">
-      <el-col :span="6">
+      <el-col :xs="24" :sm="12" :md="6">
         <el-card class="stat-card">
           <div class="stat-content">
             <el-icon :size="40" color="#409EFF"><User /></el-icon>
@@ -16,7 +16,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="6">
+      <el-col :xs="24" :sm="12" :md="6">
         <el-card class="stat-card">
           <div class="stat-content">
             <el-icon :size="40" color="#67C23A"><EditPen /></el-icon>
@@ -27,7 +27,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="6">
+      <el-col :xs="24" :sm="12" :md="6">
         <el-card class="stat-card">
           <div class="stat-content">
             <el-icon :size="40" color="#E6A23C"><Document /></el-icon>
@@ -38,7 +38,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="6">
+      <el-col :xs="24" :sm="12" :md="6">
         <el-card class="stat-card">
           <div class="stat-content">
             <el-icon :size="40" color="#909399"><TrendCharts /></el-icon>
@@ -52,7 +52,7 @@
     </el-row>
 
     <el-row :gutter="20" style="margin-top: 20px;">
-      <el-col :span="8">
+      <el-col :xs="24" :md="8">
         <el-card>
           <template #header>
             <span>用户分布</span>
@@ -74,7 +74,7 @@
         </el-card>
       </el-col>
 
-      <el-col :span="8">
+      <el-col :xs="24" :md="8">
         <el-card>
           <template #header>
             <span>考试状态</span>
@@ -96,7 +96,7 @@
         </el-card>
       </el-col>
 
-      <el-col :span="8">
+      <el-col :xs="24" :md="8">
         <el-card>
           <template #header>
             <span>快捷操作</span>
@@ -162,6 +162,7 @@ onMounted(() => {
 
 .stat-info {
   flex: 1;
+  min-width: 0;
 }
 
 .stat-value {
@@ -204,5 +205,24 @@ onMounted(() => {
 
 .action-list {
   padding: 10px 0;
+}
+
+@media (max-width: 768px) {
+  .stat-content {
+    gap: 12px;
+  }
+
+  .stat-value {
+    font-size: 22px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+  }
+
+  .stat-item {
+    padding: 10px 0;
+    font-size: 13px;
+  }
 }
 </style>

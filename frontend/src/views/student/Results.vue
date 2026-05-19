@@ -4,8 +4,8 @@
       <h2 class="page-title">我的成绩</h2>
     </div>
 
-    <el-row :gutter="20" style="margin-bottom: 20px;">
-      <el-col :span="6">
+    <el-row :gutter="12" style="margin-bottom: 20px;">
+      <el-col :xs="24" :sm="12" :md="6">
         <el-card class="stat-card">
           <div class="stat-content">
             <el-icon :size="36" color="#409EFF"><Document /></el-icon>
@@ -16,7 +16,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="6">
+      <el-col :xs="24" :sm="12" :md="6">
         <el-card class="stat-card">
           <div class="stat-content">
             <el-icon :size="36" color="#67C23A"><CircleCheck /></el-icon>
@@ -27,7 +27,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="6">
+      <el-col :xs="24" :sm="12" :md="6">
         <el-card class="stat-card">
           <div class="stat-content">
             <el-icon :size="36" color="#E6A23C"><Trophy /></el-icon>
@@ -38,7 +38,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="6">
+      <el-col :xs="24" :sm="12" :md="6">
         <el-card class="stat-card">
           <div class="stat-content">
             <el-icon :size="36" color="#909399"><TrendCharts /></el-icon>
